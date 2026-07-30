@@ -704,7 +704,7 @@ run_with_restart() {
     while true; do
         last_start=$(date +%s)
         echo "Starting server (PID will follow)..."
-        "$LLAMA_SERVER" "${flags[@]}" 2>&1 | tee "$SERVER_LOG" &
+        "$LLAMA_SERVER" "${flags[@]}" > >(tee "$SERVER_LOG") 2>&1 &
         local pid=$!
         echo "Server PID: $pid"
 
@@ -727,8 +727,8 @@ run_with_restart() {
                 BENCHMARK=0
             fi
             restarts=0
-            wait "$pid" 2>/dev/null || true
-            local exit_code=$?
+            local exit_code
+            wait "$pid" 2>/dev/null && exit_code=$? || exit_code=$?
         else
             echo "Server failed to become healthy."
             kill -9 "$pid" 2>/dev/null; wait "$pid" 2>/dev/null || true
